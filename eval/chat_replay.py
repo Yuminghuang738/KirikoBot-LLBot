@@ -62,6 +62,7 @@ class Variant:
     no_speaker: bool = False        # 去掉「当前说话人」的关系 + 画像块（测个性化的贡献）
     no_memory: bool = False         # 保留关系+画像，只去掉共同记忆（测记忆的贡献）
     no_affection: bool = False      # 保留画像+记忆，只去掉关系（好感度）块（测好感度的贡献）
+    hint: bool = False              # 在用户消息末尾提示：自然时接一件他的具体的事（测「主动用上个性化信息」）
     note: str = ""
 
 
@@ -101,6 +102,9 @@ VARIANTS: dict[str, Variant] = {
     "aff_off": Variant("aff_off", raw_limit=40, max_msgs=16, group_context=True,
                        style_rule=True, exemplars=8, tight=True, static_exemplars=True,
                        no_affection=True, note="style_tight_static 去掉好感度（关系）块"),
+    "hint": Variant("hint", raw_limit=40, max_msgs=16, group_context=True,
+                    style_rule=True, exemplars=8, tight=True, static_exemplars=True,
+                    hint=True, note="style_tight_static + 提示：自然时接一件他的具体的事"),
     "no_think_warm": Variant("no_think_warm", raw_limit=40, max_msgs=16, group_context=True,
                              thinking=False, temperature=1.0, top_p=1.0,
                              note="长历史 + 群背景 + 关思考，温度 1.0 才真正生效"),
